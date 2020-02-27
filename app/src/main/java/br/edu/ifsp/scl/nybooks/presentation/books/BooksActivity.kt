@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.ifsp.scl.nybooks.R
 import br.edu.ifsp.scl.nybooks.data.model.Book
+import br.edu.ifsp.scl.nybooks.presentation.details.BookDetailsActivity
 import kotlinx.android.synthetic.main.activity_books.*
 
 class BooksActivity : AppCompatActivity() {
@@ -24,12 +25,18 @@ class BooksActivity : AppCompatActivity() {
         // Instanciação do ViewModel para receber os dados na activity
         val viewModel = ViewModelProviders.of(this).get(BooksViewModel::class.java)
 
+
         viewModel.booksLiveData.observe(this, Observer {
             it?.let {
                 with(recyclerBooks){
                     layoutManager = LinearLayoutManager(this@BooksActivity, RecyclerView.VERTICAL, false)
                     setHasFixedSize(true)
-                    adapter = BooksAdapter(it)
+
+                    // Uso de lambda para chamar a activity BooksDetailActivity passando dados de book
+                    adapter = BooksAdapter(it) {
+                        val intent = BookDetailsActivity.getStartIntent(this@BooksActivity, it.title, it.description)
+                        this@BooksActivity.startActivity(intent)
+                    }
                 }
             }
         })
