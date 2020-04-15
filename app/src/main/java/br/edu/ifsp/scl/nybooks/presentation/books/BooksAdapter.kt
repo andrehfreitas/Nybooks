@@ -3,15 +3,18 @@ package br.edu.ifsp.scl.nybooks.presentation.books
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.ifsp.scl.nybooks.R
 import br.edu.ifsp.scl.nybooks.data.model.Book
 import kotlinx.android.synthetic.main.item_book.view.*
 
-class BooksAdapter(private val books: List<Book>, private val onItemClickListener: ((book: Book) -> Unit)): RecyclerView.Adapter<BooksAdapter.BooksViewHolder>() {
+class BooksAdapter(private val books: List<Book>, private val onItemClickListener: ((book: Book) -> Unit)):
+    RecyclerView.Adapter<BooksAdapter.BooksViewHolder>() {
 
-    class BooksViewHolder(itemView: View, private val onItemClickListener: ((book: Book) -> Unit)): RecyclerView.ViewHolder(itemView){
+
+    class BooksViewHolder(itemView: View, private val onItemClickListener: ((book: Book) -> Unit)):
+        RecyclerView.ViewHolder(itemView){
+
         private val title = itemView.textTitle
         private val author = itemView.textAuthor
 
@@ -19,6 +22,7 @@ class BooksAdapter(private val books: List<Book>, private val onItemClickListene
             title.text = book.title
             author.text = book.author
 
+            // Implementação do evento de toque em um item da lista
             itemView.setOnClickListener {
                 onItemClickListener(book)
             }
@@ -37,6 +41,7 @@ class BooksAdapter(private val books: List<Book>, private val onItemClickListene
     }
 
 
+    // Retorna o tamanho da lista
     override fun getItemCount() = books.count()
 
 }

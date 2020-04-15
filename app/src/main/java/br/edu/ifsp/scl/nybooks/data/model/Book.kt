@@ -1,7 +1,7 @@
 package br.edu.ifsp.scl.nybooks.data.model
 
 
-data class  Book(
+data class Book(
     val title: String,
     val author: String,
     val description: String

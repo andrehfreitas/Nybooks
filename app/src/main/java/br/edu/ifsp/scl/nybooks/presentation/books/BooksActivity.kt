@@ -18,7 +18,7 @@ class BooksActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_books)
 
-        // Toolbar personalizada e não a padrão do android
+        // Toolbar personalizada substituindo a padrão do android
         toolbarMain.title = getString(R.string.books_title)
         setSupportActionBar(toolbarMain)
 
@@ -26,20 +26,23 @@ class BooksActivity : AppCompatActivity() {
         val viewModel = ViewModelProviders.of(this).get(BooksViewModel::class.java)
 
 
-        viewModel.booksLiveData.observe(this, Observer {
-            it?.let {
-                with(recyclerBooks){
-                    layoutManager = LinearLayoutManager(this@BooksActivity, RecyclerView.VERTICAL, false)
-                    setHasFixedSize(true)
+        viewModel.booksLiveData.observe(
+            this,
+            Observer {
+                it?.let {
+                    with(recyclerBooks){
+                        layoutManager = LinearLayoutManager(this@BooksActivity, RecyclerView.VERTICAL, false)
+                        setHasFixedSize(true)
 
-                    // Uso de lambda para chamar a activity BooksDetailActivity passando dados de book
-                    adapter = BooksAdapter(it) {
-                        val intent = BookDetailsActivity.getStartIntent(this@BooksActivity, it.title, it.description)
-                        this@BooksActivity.startActivity(intent)
+                        // Uso de lambda para chamar a activity BooksDetailActivity passando dados de book
+                        adapter = BooksAdapter(it) {
+                            val intent = BookDetailsActivity.getStartIntent(this@BooksActivity, it.title, it.description)
+                            this@BooksActivity.startActivity(intent)
+                        }
                     }
                 }
             }
-        })
+        )
         viewModel.getBooks()
     }
 

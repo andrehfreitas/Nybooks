@@ -14,7 +14,7 @@ class BooksViewModel: ViewModel() {
     val booksLiveData: MutableLiveData<List<Book>> = MutableLiveData()
 
     fun getBooks(){
-        ApiService.service.getBooks().enqueue(object :Callback<BookBodyResponse> {
+        ApiService.service.getBooks().enqueue(object: Callback<BookBodyResponse> {
             override fun onResponse(call: Call<BookBodyResponse>, response: Response<BookBodyResponse>) {
                 if (response.isSuccessful){
                     val books: MutableList<Book> = mutableListOf()
