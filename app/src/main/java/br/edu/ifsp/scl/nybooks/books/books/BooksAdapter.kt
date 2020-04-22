@@ -1,4 +1,4 @@
-package br.edu.ifsp.scl.nybooks.presentation.books
+package br.edu.ifsp.scl.nybooks.books.books
 
 import android.view.LayoutInflater
 import android.view.View
